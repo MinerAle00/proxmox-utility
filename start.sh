@@ -1,56 +1,77 @@
 #!/bin/bash
 #https://github.com/MinerAle00/proxmox-utility
+# Credits : MinerAle, PellinD, Federico La Morgia
 
-x=0
+# Scopo dello script : installare una serie di tools
 
-function start {
-    echo "Questo script è stato scritto da MinerAle e PellinD"
-    sleep 1
-    echo "Gli autori dello script non rispondono su eventuali errori!"
-    sleep 2
+
+
+show_menu(){
+    normal=`echo "\033[m"`
+    menu=`echo "\033[36m"` #Blue
+    number=`echo "\033[33m"` #yellow
+    bgred=`echo "\033[41m"`
+    fgred=`echo "\033[31m"`
+    printf "\n${menu}*********************************************${normal}\n"
+    printf "Questo script è stato realizzato da MinerAle, PellinD e da FedericoLM${normal}\n"
+    printf "${menu}**${number} 1)${menu} Installare Phoronix Test Suite ${normal}\n"
+    printf "${menu}**${number} 2)${menu} TODO ${normal}\n"
+    printf "${menu}**${number} 3)${menu} TODO ${normal}\n"
+    printf "${menu}**${number} 4)${menu} TODO ${normal}\n"
+    printf "${menu}**${number} 5)${menu} TODO${normal}\n"
+    printf "${menu}*********************************************${normal}\n"
+    printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
+    read opt
 }
 
-if (x<=0) ; 
-    then start
-else
-    then selection
-fi
-
-function selection {
-    echo "Seleziona il programma che vuoi utilizzare: "read x
-    
+option_picked(){
+    msgcolor=`echo "\033[01;31m"` # bold red
+    normal=`echo "\033[00;00m"` # normal white
+    message=${@:-"${normal}Error: No message passed"}
+    printf "${msgcolor}${message}${normal}\n"
 }
 
-echo "Questo script è stato scritto da MinerAle e PellinD"
-echo "Gli autori dello script non rispondono su eventuali errori!"
-
-function selezione {
-    echo "seleziona il programma che vuoi utilizzare:"
-    echo "1) valore1"
-    echo "2) Suite di test by phoronix test suite"
-    echo "3) valore3"
-    echo "4) valore4"
-    echo "5) valore5"
-    x=0
-    while [ $x -le 0 ]
+clear
+show_menu
+while [ $opt != '' ]
     do
-        echo -e "\ninserire valore: "
-        read -n 1 -p "" x
-        x=$(($x))
-    done
-    
-    if [ $x = 1 ]; 
-        then
-            echo -e "\nhai selezionato valore1"
-        #stringa codice del valore1 corrispondente
-        
+    if [ $opt = '' ]; then
+      exit;
+    else
+      case $opt in
+        1) clear;
+            option_picked "Installazione di Phoronix Test Suite selezionata";
+            sudo apt install gdebi wget ;
+            wget https://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.8.4_all.deb ;
+            sudo gdebi phoronix-test-suite_10.8.4_all.deb ;
+            printf "Installazione di Phoronix Test Suite";
+            show_menu;
+        ;;
+        2) clear;
+            option_picked "Opzione 2 selezionata";
+            printf "TODO";
+            show_menu;
+        ;;
+        3) clear;
+            option_picked "Opzione 3 selezionata";
+            printf "TODO";
+            show_menu;
+        ;;
+        4) clear;
+            option_picked "Opzione 4 selezionata";
+            printf "TODO";
+            show_menu;
+        ;;
+        x)exit;
+        ;;
+        \n)exit;
+        ;;
+        *)clear;
+            option_picked "Seleziona una opzione dal menu";
+            show_menu;
+        ;;
+      esac
     fi
-    if [ $x = 2 ]; 
-        then
-            echo -e "\nhai selezionato suite di test"
-        #stringa codice del valore2 corrispondente
-        sudo apt install gdebi wget
-        wget https://phoronix-test-suite.com/releases/repo/pts.debian/files/phoronix-test-suite_10.8.4_all.deb
-        sudo gdebi phoronix-test-suite_10.8.4_all.deb
-    fi
-    }
+done
+
+
