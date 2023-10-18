@@ -6,10 +6,10 @@ L'installazione viene fatta tramite CLI. Segui i vari comandi step by step per l
 
 
 ```
-~# sudo apt install git wget 
-~# git clone https://github.com/MinerAle00/proxmox-utility.git
-~# cd proxmox-utility
-~# bash start.sh
+apt install git wget 
+git clone https://github.com/MinerAle00/proxmox-utility.git
+cd proxmox-utility
+bash start.sh
 ```
 
 Enjoy!
